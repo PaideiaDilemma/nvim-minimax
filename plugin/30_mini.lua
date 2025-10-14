@@ -575,6 +575,8 @@ later(function()
       .. '<Cmd>lua MiniMap.refresh({}, { lines = false, scrollbar = false })<CR>'
     vim.keymap.set('n', key, rhs)
   end
+
+  map.open()
 end)
 
 -- Miscellaneous small but useful functions. Example usage:
