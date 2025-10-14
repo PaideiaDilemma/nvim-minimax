@@ -32,7 +32,7 @@ local now, later = MiniDeps.now, MiniDeps.later
 -- - `:h mini.nvim-color-schemes` - list of other color schemes
 -- - `:h MiniHues-examples` - how to define highlighting with 'mini.hues'
 -- - 'plugin/40_plugins.lua' honorable mentions - other good color schemes
-now(function() vim.cmd('colorscheme miniwinter') end)
+-- now(function() vim.cmd('colorscheme miniwinter') end)
 
 -- You can try these other 'mini.hues'-based color schemes (uncomment with `gcc`):
 -- now(function() vim.cmd('colorscheme minispring') end)
@@ -370,7 +370,7 @@ end)
 --
 -- It is not enabled by default because its effects are a matter of taste.
 -- Uncomment next line (use `gcc`) to enable.
--- later(function() require('mini.cursorword').setup() end)
+later(function() require('mini.cursorword').setup() end)
 
 -- Work with diff hunks that represent the difference between the buffer text and
 -- some reference text set by a source. Default source uses text from Git index.
@@ -419,7 +419,18 @@ later(function() require('mini.diff').setup() end)
 -- - `:h MiniFiles-examples` - examples of common setups
 later(function()
   -- Enable directory/file preview
-  require('mini.files').setup({ windows = { preview = true } })
+  require('mini.files').setup({
+      windows = {
+        preview = true,
+        width_focus = 30,
+        width_preview = 120,
+      },
+      options = {
+        -- Whether to use for editing directories
+        -- Disabled by default in LazyVim because neo-tree is used for that
+        use_as_default_explorer = true,
+      },
+  })
 
   -- Add common bookmarks for every explorer. Example usage inside explorer:
   -- - `'c` to navigate into your config directory
@@ -429,6 +440,13 @@ later(function()
     local minideps_plugins = vim.fn.stdpath('data') .. '/site/pack/deps/opt'
     MiniFiles.set_bookmark('p', minideps_plugins, { desc = 'Plugins' })
     MiniFiles.set_bookmark('w', vim.fn.getcwd, { desc = 'Working directory' })
+    MiniFiles.set_bookmark('d',function() return home .. '/nixos-dotfiles' end, { desc = 'Nixos Dotfiles' })
+    MiniFiles.set_bookmark('l',function() return home .. '/desk/hyprlock' end, { desc = 'hyprlock' })
+    MiniFiles.set_bookmark('L',function() return home .. '/desk/Hyprland' end, { desc = 'Hyprland' })
+    MiniFiles.set_bookmark('a',function() return home .. '/desk/aquamarine' end, { desc = 'aquamarine' })
+    MiniFiles.set_bookmark('t',function() return home .. '/desk/hyprtoolkit' end, { desc = 'hyprtoolkit' })
+    MiniFiles.set_bookmark('u',function() return home .. '/desk/hyprutils' end, { desc = 'hyprutils' })
+    MiniFiles.set_bookmark('c',function() return home .. '/desk/clipz' end, { desc = 'clipz' })
   end
   _G.Config.new_autocmd('User', 'MiniFilesExplorerOpen', add_marks, 'Add bookmarks')
 end)
@@ -540,7 +558,7 @@ later(function()
   local map = require('mini.map')
   map.setup({
     -- Use Braille dots to encode text
-    symbols = { encode = map.gen_encode_symbols.dot('4x2') },
+    symbols = { encode = nil }, -- map.gen_encode_symbols.dot('4x2') },
     -- Show built-in search matches, 'mini.diff' hunks, and diagnostic entries
     integrations = {
       map.gen_integration.builtin_search(),
@@ -753,7 +771,7 @@ later(function() require('mini.splitjoin').setup() end)
 -- This module comes with many built-in surroundings, each identified by a single
 -- character. It searches only for surrounding that covers cursor and comes with
 -- a special "next" / "last" versions of actions to search forward or backward
--- (just like 'mini.ai'). All text editing actions are dot-repeatable (see `:h .`).
+-- (just like mini.ai). All text editing actions are dot-repeatable (see `:h .`).
 --
 -- Example usage (this may feel intimidating at first, but after practice it
 -- becomes second nature during text editing):
