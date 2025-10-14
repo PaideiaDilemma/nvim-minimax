@@ -152,7 +152,13 @@ later(function() add('rafamadriz/friendly-snippets') end)
 -- enabled in 'plugin/30_mini.lua' or other suggested 'mini.hues' based ones.
 -- now(function()
 --   -- Install only those that you need
---   add('sainnhe/everforest')
+later(function()
+  add('nvim-tree/nvim-web-devicons')
+  add('ibhagwan/fzf-lua')
+
+  require("fzf-lua").setup({
+  })
+end)
 --   add('Shatur/neovim-ayu')
 --   add('ellisonleao/gruvbox.nvim')
 --
