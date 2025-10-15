@@ -54,6 +54,12 @@ now_if_args(function()
     'lua',
     'vimdoc',
     'markdown',
+    'c',
+    'cpp',
+    'python',
+    'zig',
+    'rust',
+    'java',
   }
   local isnt_installed = function(lang)
     return #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.*', false) == 0
@@ -68,6 +74,7 @@ now_if_args(function()
       table.insert(filetypes, ft)
     end
   end
+  vim.print(filetypes)
   local ts_start = function(ev) vim.treesitter.start(ev.buf) end
   _G.Config.new_autocmd('FileType', filetypes, ts_start, 'Start tree-sitter')
 end)
