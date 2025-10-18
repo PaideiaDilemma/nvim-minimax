@@ -162,6 +162,14 @@ now(function()
 end)
 
 later(function()
+  vim.cmd("packadd termdebug")
+
+  vim.g.termdebug_config = {
+    command = {'pwndbg', '-ex', 'set context-code-lines 0'},
+  }
+end)
+
+later(function()
   add('nvim-tree/nvim-web-devicons')
   add('ibhagwan/fzf-lua')
 
