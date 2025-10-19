@@ -24,7 +24,7 @@ local enable_term_numbering = function(params)
   vim.opt_local.scbk = 100000 -- maximum? https://github.com/neovim/neovim/pull/9563#issuecomment-459387587
 end
 _G.Config.new_autocmd('TermOpen', nil, enable_term_numbering, 'Set terminal buffer size')
-
+vim.api.nvim_set_option("clipboard", "unnamedplus")
 
 vim.g.mapleader = ' ' -- Use `<Space>` as <Leader> key
 
